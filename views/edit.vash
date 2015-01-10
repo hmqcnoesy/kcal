@@ -1,0 +1,51 @@
+﻿@html.extend('layout', function(model){
+	@html.block('content', function(model){
+		<div>
+			<select id="selFoods"></select>
+			<input type="hidden" id="hiddenId" value="0" />
+		</div>
+		<div class="nutrition-facts">
+			<h1>Nutrition Facts</h1>
+			<div class="pure-g">
+				<div class="pure-u-1-2">Name</div>
+				<div class="pure-u-1-2"><input id="txtName" type="text" /></div>
+			</div>
+
+			<h2>Amount Per Serving</h2>
+			<div class="pure-g">
+				<div class="pure-u-1-2">Calories</div>
+				<div class="pure-u-1-2"><input id="txtCalories" type="number" /></div>
+			</div>
+
+			<div class="pure-g">
+				<div class="pure-u-1-2">Fat</div>
+				<div class="pure-u-1-2"><input id="txtFat" type="number" /></div>
+			</div>
+
+			<div class="pure-g">
+				<div class="pure-u-1-2">Carbohydrate</div>
+				<div class="pure-u-1-2"><input id="txtCarbohydrate" type="number" /></div>
+			</div>
+
+			<div class="pure-g">
+				<div class="pure-u-1-2">Protein</div>
+				<div class="pure-u-1-2"><input id="txtProtein" type="number" /></div>
+			</div>
+
+			<div class="pure-g">
+				<div class="pure-u-1-2"></div>
+				<div class="pure-u-1-2"><button id="btnSave">Save</button></div>
+			</div>
+
+			<div class="pure-g">
+				<div class="pure-u-1-2"></div>
+				<div class="pure-u-1-2" id="divSaveResult"></div>
+			</div>
+		</div>
+	})
+	
+	@html.block('scripts', function() {
+		<script src="/public/edit.js">
+		</script>
+	})
+})

@@ -1,0 +1,12 @@
+﻿@html.extend('layout', function(model){
+    @html.block('content', function(model){
+        <div class="failure">
+            <h3>An error has occurred:</h3>
+            @for(var p in model) {
+                if (model.hasOwnProperty(p) && model[p].toString) {
+                    <h2>@p : @model[p]</h2>
+                }
+            }
+        </div>
+    })
+})

@@ -1,0 +1,44 @@
+﻿@html.extend('layout', function(model){
+    @html.block('content', function(model){
+        @if (model.success)
+        {
+            <div class="success"><h3>@model.success</h3></div>
+        }
+
+        @if (model.failure)
+        {
+            <div class="failure"><h3>@model.failure</h3></div>
+        }
+
+        <div class="posts">
+            <h1 id="h1Date"></h1>
+			<table id="tblFoods" class="pure-table pure-table-striped pure-table-condensed">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Portion</th>
+						<th>Cal</th>
+						<th>P</th>
+						<th>C</th>
+						<th>F</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+        </div>
+		<footer>
+			<div class="pure-g">
+				<div class="pure-u-2-3"><select id="selQuickFoods"></select></div>
+				<div class="pure-u-1-6"><input type="number" id="txtPortion" value="1" /></div>
+				<div class="pure-u-1-6"><button id="btnConsume">Consume</button></div>
+			</div>
+		</footer>
+    })
+
+	@html.block('scripts', function() {
+		<script src="/public/index.js"></script>
+	})
+})

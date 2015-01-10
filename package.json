@@ -1,0 +1,15 @@
+{
+  "name": "Clipper",
+  "version": "0.0.0",
+  "private": true,
+  "main": "app.js",
+  "description": "kcal",
+  "author": {
+    "name": "mcneim",
+    "email": ""
+  },
+  "dependencies": {
+    "express": "~4.9.0",
+    "vash": "^0.7.12-1"
+  }
+}
