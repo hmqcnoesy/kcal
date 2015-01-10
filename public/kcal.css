@@ -40,12 +40,20 @@ button {
 	font-weight: bold;
 }
 
+header {
+	padding-top: 1em;
+	padding-bottom: 1em;
+	background-color: green;
+	color: white;
+	font-size: 120%;
+	font-weight: bold;
+}
+
 footer {
 	position: fixed;
 	bottom: 0;
+	width: 100%;
 	background-color: black;
 	color: white;
-	display: block;
-	width: 100%;
 	padding: 1em 0;
 }
