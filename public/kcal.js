@@ -1,6 +1,7 @@
 
 function getFoodsByDateString(dateString) {
-	var foods = localStorage[dateString] || '[]';
+	var foods = localStorage[dateString] || '[]';+
+	console.dir(foods);
 	return JSON.parse(foods);
 }
 

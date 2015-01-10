@@ -2,6 +2,7 @@
 $(function() {
 	var foods = getFoodsByDateString(dateToString(new Date()));
 	showFoodsData(foods);
+	setupRemoveRowLinks();
 	
 	var quickFoods = getQuickFoods();
 
@@ -28,6 +29,7 @@ $(function() {
 		foods.push(food);
 		localStorage[todayString] = JSON.stringify(foods);
 		showFoodsData(foods);
+		setupRemoveRowLinks();
 	});
 	
 	
@@ -36,7 +38,7 @@ $(function() {
 		var totalCal = 0, totalP = 0, totalC = 0, totalF = 0;
 		
 		for (var i = 0; i < foods.length; i++) {
-			rows += getTableRow(foods[i]);
+			rows += getTableRow(foods[i], true);
 			
 			totalCal += foods[i].calories;
 			totalP += foods[i].protein;
@@ -45,17 +47,36 @@ $(function() {
 		}
 		
 		$('#tblFoods>tbody').html(rows);
-		$('#tblFoods>tfoot').html(getTableRow({name: 'Total', portion: '-', calories: totalCal, protein: totalP, carbohydrate: totalC, fat: totalF}));
+		$('#tblFoods>tfoot').html(getTableRow({name: 'Total', portion: '-', calories: totalCal, protein: totalP, carbohydrate: totalC, fat: totalF}, false));
 	}
 	
-	function getTableRow(food) {
-		console.dir(food);
+	function getTableRow(food, allowRemoval) {
 		var row = '<tr><td>' + food.name + '</td>';
 		row += '<td>' + food.portion + '</td>';
 		row += '<td>' + food.calories.toFixed(1) + '</td>';
 		row += '<td>' + food.protein.toFixed(1) + '</td>';
 		row += '<td>' + food.carbohydrate.toFixed(1) + '</td>';
-		row += '<td>' + food.fat.toFixed(1) + '</td></tr>';
+		row += '<td>' + food.fat.toFixed(1) + '</td>';
+		if (allowRemoval) 
+		{
+			row += '<td><a data-remove-row>x</a></td>';
+		} else {
+			row += '<td></td>';
+		}
+		row += '</tr>';
 		return row;
+	}
+	
+	
+	function setupRemoveRowLinks() {
+		$('a[data-remove-row]').click(function() {
+			if (confirm('Confirm row removal?')) {
+				var foods = getFoodsByDateString(new Date());
+				//remove the food,
+				//save back into localStorage
+				//call showFoodsData();
+				//call setupRemoveRowLinks();
+			}
+		});
 	}
 });
