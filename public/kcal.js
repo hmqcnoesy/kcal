@@ -6,9 +6,11 @@ function getFoodsByDateString(dateString) {
 }
 
 function dateToString(date) {
-	return date.getFullYear().toString() + '-' 
-	+ date.getMonth().toString() + '-' 
-	+ date.getDate().toString();
+	var year = date.getFullYear().toString();
+	var month = ("0" + (date.getMonth() + 1)).slice(-2);
+	var day = ("0" + date.getDate()).slice(-2);
+
+	return year + "-" + month + "-" + day;
 }
 
 function stringToDate(dateString) {

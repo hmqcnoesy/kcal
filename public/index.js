@@ -1,6 +1,9 @@
 
 $(function() {
-	var foods = getFoodsByDateString(dateToString(new Date()));
+	var todayString = dateToString(new Date());
+	var foods = getFoodsByDateString(todayString);
+	$('#date').val(todayString);
+	setupDateChange();
 	showFoodsData(foods);
 	setupRemoveRowLinks();
 	
@@ -24,10 +27,10 @@ $(function() {
 			fat: portion * $opt.attr('data-fat')
 		};
 		
-		var todayString = dateToString(new Date());
-		var foods = getFoodsByDateString(todayString);
+		var consumeDate = $('#date').val();
+		var foods = getFoodsByDateString(consumeDate);
 		foods.push(food);
-		localStorage[todayString] = JSON.stringify(foods);
+		localStorage[consumeDate] = JSON.stringify(foods);
 		showFoodsData(foods);
 		setupRemoveRowLinks();
 	});
@@ -47,12 +50,11 @@ $(function() {
 		}
 		
 		$('#tblFoods>tbody').html(rows);
-		$('#tblFoods>tfoot').html(getTableRow({name: 'Total', portion: '-', calories: totalCal, protein: totalP, carbohydrate: totalC, fat: totalF}, false));
+		$('#tblFoods>tfoot').html(getTableRow({name: 'Total', portion: ' ', calories: totalCal, protein: totalP, carbohydrate: totalC, fat: totalF}, false));
 	}
 	
 	function getTableRow(food, allowRemoval) {
-		var row = '<tr><td>' + food.name + '</td>';
-		row += '<td>' + food.portion + '</td>';
+		var row = '<tr><td>' + food.portion + ' ' + food.name + '</td>';
 		row += '<td>' + food.calories.toFixed(1) + '</td>';
 		row += '<td>' + food.protein.toFixed(1) + '</td>';
 		row += '<td>' + food.carbohydrate.toFixed(1) + '</td>';
@@ -77,6 +79,15 @@ $(function() {
 				//call showFoodsData();
 				//call setupRemoveRowLinks();
 			}
+		});
+	}
+	
+	
+	function setupDateChange() {
+		$('#date').change(function() {
+			var foods = getFoodsByDateString($('#date').val());
+			showFoodsData(foods);
+			setupRemoveRowLinks();
 		});
 	}
 });
