@@ -19,6 +19,7 @@ $(function() {
 		var portion = (Number)($('#txtPortion').val());
 		
 		var food = {
+			id: generateUUID(),
 			name: $opt.attr('data-name'),
 			portion: portion,
 			calories: portion * $opt.attr('data-calories'),
@@ -61,7 +62,7 @@ $(function() {
 		row += '<td>' + food.fat.toFixed(1) + '</td>';
 		if (allowRemoval) 
 		{
-			row += '<td><a data-remove-row>x</a></td>';
+			row += '<td><a data-remove-row="' + food.id + '">x</a></td>';
 		} else {
 			row += '<td></td>';
 		}
@@ -73,11 +74,19 @@ $(function() {
 	function setupRemoveRowLinks() {
 		$('a[data-remove-row]').click(function() {
 			if (confirm('Confirm row removal?')) {
-				var foods = getFoodsByDateString(new Date());
-				//remove the food,
-				//save back into localStorage
-				//call showFoodsData();
-				//call setupRemoveRowLinks();
+				var idToRemove = $(this).attr('data-remove-row');
+				var foods = getFoodsByDateString($('#date').val());
+				for (var i = 0; i < foods.length; i++) {
+					if (foods[i].id === idToRemove) {
+						foods.splice(i, 1);
+						$(this).parents('tr').remove();
+						break;
+					}
+				}
+				
+				localStorage[$('#date').val()] = JSON.stringify(foods);
+				showFoodsData(foods);
+				setupRemoveRowLinks();
 			}
 		});
 	}

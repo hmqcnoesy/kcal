@@ -18,9 +18,9 @@ $(function() {
 		var quickFoods = getQuickFoods();
 		var id = $('#hiddenId').val();
 		
-		if (id == 0) {
+		if (!id) {
 			var food = {
-				id: quickFoods.length + 1,
+				id: generateUUID(),
 				name: $('#txtName').val(),
 				calories: $('#txtCalories').val(),
 				fat: $('#txtFat').val(),
@@ -43,6 +43,6 @@ $(function() {
 		}
 		
 		saveQuickFoods(quickFoods);
-		$('#divSaveResult').text('Succesfully saved food (' + quickFoods.length + ')');
+		$('#divSaveResult').text('Succesfully saved food');
 	});
 });

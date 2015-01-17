@@ -2,7 +2,7 @@
 	@html.block('content', function(model){
 		<div>
 			<select id="selFoods"></select>
-			<input type="hidden" id="hiddenId" value="0" />
+			<input type="hidden" id="hiddenId" value="" />
 		</div>
 		<div class="nutrition-facts">
 			<h1>Nutrition Facts</h1>
