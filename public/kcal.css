@@ -57,7 +57,7 @@ button {
 
 
 #tblFoods {
-	font-size: 85%;
+	font-size: 65%;
 }
 
 #tblFoods > thead th {
@@ -97,6 +97,7 @@ footer {
 a, a:focus, a:link, a:visited {
 	color: white;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 a[data-remove-row] {
