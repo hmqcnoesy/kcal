@@ -43,6 +43,10 @@ background-image: linear-gradient(to bottom, #006C9E 0%, #002333 80%);
 	padding-bottom: 200px;
 }
 
+.content > div {
+	margin-bottom: 0.5em;
+}
+
 input[type=number],
 input[type=text],
 select,

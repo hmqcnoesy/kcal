@@ -14,6 +14,12 @@ $(function() {
 	
 	$('#btnConsume').click(function() {
 		var sel = document.getElementById('selQuickFoods');
+		
+		if (sel.selectedIndex == 0) {
+			window.location = '/edit';
+			return;
+		}
+		
 		var opt = sel.options[sel.selectedIndex];
 		var $opt = $(opt);
 		var portion = (Number)($('#txtPortion').val());
@@ -52,6 +58,12 @@ $(function() {
 		
 		$('#tblFoods>tbody').html(rows);
 		$('#tblFoods>tfoot').html(getTableRow({name: 'Total', portion: ' ', calories: totalCal, protein: totalP, carbohydrate: totalC, fat: totalF}, false));
+		
+		var goals = localStorage.goals || {calories: 1800, protein: 170, carbohydrate: 220, fat: 50 };
+		if (goals.calories) $('#progressCalories').attr('max', goals.calories).val(totalCal);
+		if (goals.protein) $('#progressProtein').attr('max', goals.protein).val(totalP);
+		if (goals.carbohydrate) $('#progressCarbohydrate').attr('max', goals.carbohydrate).val(totalC);
+		if (goals.fat) $('#progressFat').attr('max', goals.fat).val(totalF);
 	}
 	
 	function getTableRow(food, allowRemoval) {

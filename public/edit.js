@@ -1,5 +1,7 @@
 
 $(function() {
+	$('#date').val(dateToString(new Date()));
+	
 	var quickFoods = getQuickFoods();
 	var options = createFoodOptionsForSelect(quickFoods, '&lt;Create New&gt;');
 	$('#selFoods').html(options);
@@ -43,6 +45,25 @@ $(function() {
 		}
 		
 		saveQuickFoods(quickFoods);
-		$('#divSaveResult').text('Succesfully saved food');
+		window.location('/');
+	});
+	
+	
+	$('#btnConsume').click(function() {		
+		var food = {
+			id: generateUUID(),
+			name: $('#txtName').val(),
+			portion: 1,
+			calories: parseFloat($('#txtCalories').val()),
+			protein: parseFloat($('#txtProtein').val()),
+			carbohydrate: parseFloat($('#txtCarbohydrate').val()),
+			fat: parseFloat($('#txtFat').val())
+		};
+		
+		var consumeDate = $('#date').val();
+		var foods = getFoodsByDateString(consumeDate);
+		foods.push(food);
+		localStorage[consumeDate] = JSON.stringify(foods);
+		window.location('/');
 	});
 });
