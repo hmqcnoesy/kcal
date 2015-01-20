@@ -55,20 +55,54 @@ button {
 	margin: 0.2em 0 0.2em 0;
 }
 
+progress {
+	width: 95%;
+}
+
+
+#divCalories, #divProtein, #divCarbohydrate, #divFat {
+	font-size: 75%;
+	font-weight: bold;
+}
+
+
+input#date {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 0.25em 0;
+    margin: 0;
+    width: 100%;
+}
+
 
 #tblFoods {
 	font-size: 65%;
 }
+
 
 #tblFoods > thead th {
 	background-color: #002333;
 	color: white;
 }
 
+
 #tblFoods > tfoot td {
 	background-color: #002333;
 	color: white;
 	font-weight: bold;
+}
+
+
+button {
+	font-size: 80%;
+	background-color: #002333;
+	border: 2px solid #006C9E;
+	color: white;
+	font-weight: bold;
+	padding: 0.25em 0;
 }
 
 header {

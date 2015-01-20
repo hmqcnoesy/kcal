@@ -2,6 +2,8 @@ $(function() {
 	var todayString = dateToString(new Date());
 	var foods = getFoodsByDateString(todayString);
 	$('#date').val(todayString);
+	
+	setupPrevNextDateButtonClick();
 	setupDateChange();
 	showFoodsData(foods);
 	setupRemoveRowLinks();
@@ -15,6 +17,23 @@ $(function() {
 	setupConsumeClick();
 	setupSaveClick();
 });
+
+
+function setupPrevNextDateButtonClick() {
+	$('#btnPrevDate').click(function() {
+		var selectedDate = stringToDate($('#date').val());
+		selectedDate.setDate(selectedDate.getDate() - 1);
+		$('#date').val(dateToString(selectedDate));
+		$('#date').trigger('change');
+	});
+	
+	$('#btnNextDate').click(function() {
+		var selectedDate = stringToDate($('#date').val());
+		selectedDate.setDate(selectedDate.getDate() + 1);
+		$('#date').val(dateToString(selectedDate));
+		$('#date').trigger('change');
+	});
+}
 
 
 function setupSelectFoodChange() {
@@ -33,8 +52,6 @@ function setupSelectFoodChange() {
 function setupConsumeClick() {
 	$('#btnConsume').click(function() {
 		var sel = document.getElementById('selFoods');
-		
-		if (sel.selectedIndex == 0) return;
 		
 		var opt = sel.options[sel.selectedIndex];
 		var $opt = $(opt);
@@ -142,10 +159,22 @@ function showFoodsData(foods) {
 	$('#tblFoods>tfoot').html(getTableRow({name: 'Total', portion: ' ', calories: totalCal, protein: totalP, carbohydrate: totalC, fat: totalF}, false));
 	
 	var goals = localStorage.goals || {calories: 1800, protein: 170, carbohydrate: 220, fat: 50 };
-	if (goals.calories) $('#progressCalories').attr('max', goals.calories).val(totalCal);
-	if (goals.protein) $('#progressProtein').attr('max', goals.protein).val(totalP);
-	if (goals.carbohydrate) $('#progressCarbohydrate').attr('max', goals.carbohydrate).val(totalC);
-	if (goals.fat) $('#progressFat').attr('max', goals.fat).val(totalF);
+	if (goals.calories) {
+		$('#progressCalories').attr('max', goals.calories).val(totalCal);
+		$('#divCalories').text(totalCal);
+	}
+	if (goals.protein) {
+		$('#progressProtein').attr('max', goals.protein).val(totalP);
+		$('#divProtein').text(totalP);
+	}
+	if (goals.carbohydrate) {
+		$('#progressCarbohydrate').attr('max', goals.carbohydrate).val(totalC);
+		$('#divCarbohydrate').text(totalC);
+	}
+	if (goals.fat) {
+		$('#progressFat').attr('max', goals.fat).val(totalF);
+		$('#divFat').text(totalF);
+	}
 }
 
 	
@@ -167,8 +196,7 @@ function getTableRow(food, allowRemoval) {
 
 
 function getFoodsByDateString(dateString) {
-	var foods = localStorage[dateString] || '[]';+
-	console.dir(foods);
+	var foods = localStorage[dateString] || '[]';
 	return JSON.parse(foods);
 }
 
@@ -183,7 +211,8 @@ function dateToString(date) {
 
 
 function stringToDate(dateString) {
-	return '';
+	var parts = dateString.split('-');
+	return new Date(parts[0], parts[1]-1, parts[2]);
 }
 
 
@@ -213,12 +242,14 @@ function createFoodOptionsForSelect(foods, emptyOptionText) {
 		options += 'data-fat="' + foods[i].fat + '" ';
 		options += '>' + foods[i].name + '</option>';
 	}
-	console.log(options);
 	return options;
 }
 
 
 function getQuickFoods() {
 	var quickFoods = localStorage.quickFoods || '[]';
-	return JSON.parse(quickFoods);
+	quickFoods = JSON.parse(quickFoods);
+	return quickFoods.sort(function(a, b) {
+		return a.name.localeCompare(b.name);
+	});
 }

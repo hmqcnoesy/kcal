@@ -12,7 +12,16 @@
 		<a href="/">kcal</a>
 	</header>
 	<div id="divMain">
-		<div><progress id="progressCalories" value="0" max="1"></progress></div><div><progress id="progressProtein" value="0" max="1"></progress></div><div><progress id="progressCarbohydrate" value="0" max="1"></progress></div><div><progress id="progressFat" value="0" max="1"></progress></div><div>
+		<div class="pure-g"><div class="pure-u-5-6"><progress id="progressCalories" value="0" max="1"></progress></div><div class="pure-u-1-6" id="divCalories">1874</div></div>
+		<div class="pure-g"><div class="pure-u-5-6"><progress id="progressProtein" value="0" max="1"></progress></div><div class="pure-u-1-6" id="divProtein">111</div></div>
+		<div class="pure-g"><div class="pure-u-5-6"><progress id="progressCarbohydrate" value="0" max="1"></progress></div><div class="pure-u-1-6" id="divCarbohydrate">123</div></div>
+		<div class="pure-g"><div class="pure-u-5-6"><progress id="progressFat" value="0" max="1"></progress></div><div class="pure-u-1-6" id="divFat">45</div></div>
+		<div class="pure-g">
+			<div class="pure-u-1-4"><button id="btnPrevDate">&lt;</button></div>
+			<div class="pure-u-1-2"><input type="date" id="date" /></div>
+			<div class="pure-u-1-4"><button id="btnNextDate">&gt;</button></div>
+		</div>
+		<div>
 			<table id="tblFoods" class="pure-table pure-table-condensed">
 				<thead>
 					<tr>
@@ -27,8 +36,6 @@
 				<tbody></tbody>
 				<tfoot></tfoot>
 			</table>
-		</div><div>
-			<input type="date" id="date" />
 		</div>
 	</div>
 	<div id="divEditor">
