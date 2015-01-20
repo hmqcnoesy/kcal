@@ -161,19 +161,19 @@ function showFoodsData(foods) {
 	var goals = localStorage.goals || {calories: 1800, protein: 170, carbohydrate: 220, fat: 50 };
 	if (goals.calories) {
 		$('#progressCalories').attr('max', goals.calories).val(totalCal);
-		$('#divCalories').text(totalCal);
+		$('#divCalories').text(totalCal.toFixed(0));
 	}
 	if (goals.protein) {
 		$('#progressProtein').attr('max', goals.protein).val(totalP);
-		$('#divProtein').text(totalP);
+		$('#divProtein').text(totalP.toFixed(0));
 	}
 	if (goals.carbohydrate) {
 		$('#progressCarbohydrate').attr('max', goals.carbohydrate).val(totalC);
-		$('#divCarbohydrate').text(totalC);
+		$('#divCarbohydrate').text(totalC.toFixed(0));
 	}
 	if (goals.fat) {
 		$('#progressFat').attr('max', goals.fat).val(totalF);
-		$('#divFat').text(totalF);
+		$('#divFat').text(totalF.toFixed(0));
 	}
 }
 
