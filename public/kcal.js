@@ -111,6 +111,7 @@ function setupSaveClick() {
 			}
 		}
 		
+		$('#divSaveResult').text('Saved ' + $('#txtName').val()).show().delay(750).fadeOut(750);
 		localStorage.quickFoods = JSON.stringify(quickFoods);
 	});
 }
@@ -119,21 +120,19 @@ function setupSaveClick() {
 	
 function setupRemoveRowLinks() {
 	$('a[data-remove-row]').click(function() {
-		if (confirm('Confirm row removal?')) {
-			var idToRemove = $(this).attr('data-remove-row');
-			var foods = getFoodsByDateString($('#date').val());
-			for (var i = 0; i < foods.length; i++) {
-				if (foods[i].id === idToRemove) {
-					foods.splice(i, 1);
-					$(this).parents('tr').remove();
-					break;
-				}
+		var idToRemove = $(this).attr('data-remove-row');
+		var foods = getFoodsByDateString($('#date').val());
+		for (var i = 0; i < foods.length; i++) {
+			if (foods[i].id === idToRemove) {
+				foods.splice(i, 1);
+				$(this).parents('tr').remove();
+				break;
 			}
-			
-			localStorage[$('#date').val()] = JSON.stringify(foods);
-			showFoodsData(foods);
-			setupRemoveRowLinks();
 		}
+		
+		localStorage[$('#date').val()] = JSON.stringify(foods);
+		showFoodsData(foods);
+		setupRemoveRowLinks();
 	});
 }
 
