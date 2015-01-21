@@ -93,6 +93,11 @@ function setupSaveClick() {
 			}
 			
 			quickFoods.push(food);
+			var opt = '<option value="' + food.id + '" data-name="' + food.name + '" '
+				+ 'data-calories="' + food.calories + '" data-protein="' + food.protein + '" '
+				+ 'data-carbohydrate="' + food.carbohydrate + '" '
+				+ 'data-fat="' + food.fat + '">' + food.name + '</option>';
+			$('#selFoods').append(opt);
 		} else {
 			for (var i = 0; i < quickFoods.length; i++) {
 				if (quickFoods[i].id == id) {
@@ -238,7 +243,7 @@ function createFoodOptionsForSelect(foods, emptyOptionText) {
 		options += 'data-name="' + foods[i].name + '" ';
 		options += 'data-calories="' + foods[i].calories + '" ';
 		options += 'data-protein="' + foods[i].protein + '" ';
-		options += 'data-carbohydrate="' + foods[i].carbohydrate + '"';
+		options += 'data-carbohydrate="' + foods[i].carbohydrate + '" ';
 		options += 'data-fat="' + foods[i].fat + '" ';
 		options += '>' + foods[i].name + '</option>';
 	}
