@@ -16,6 +16,7 @@ $(function() {
 	setupSelectFoodChange();
 	setupConsumeClick();
 	setupSaveClick();
+	setupTabButtonsClick();
 });
 
 
@@ -142,6 +143,14 @@ function setupDateChange() {
 		var foods = getFoodsByDateString($('#date').val());
 		showFoodsData(foods);
 		setupRemoveRowLinks();
+	});
+}
+
+
+function setupTabButtonsClick() {
+	$('button[data-tab-target]').click(function() {
+		$('.tab').hide();
+		$($(this).attr('data-tab-target')).show();
 	});
 }
 	
