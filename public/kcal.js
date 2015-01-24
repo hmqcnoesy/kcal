@@ -17,6 +17,7 @@ $(function() {
 	setupConsumeClick();
 	setupSaveClick();
 	setupTabButtonsClick();
+	setupBtnSaveGoalsClick();
 });
 
 
@@ -153,6 +154,22 @@ function setupTabButtonsClick() {
 		$($(this).attr('data-tab-target')).show();
 	});
 }
+
+
+function setupBtnSaveGoalsClick() {
+	$('#btnSaveGoals').click(function() {
+		var goals = {
+			calories: parseFloat($('#txtGoalCalories').val()), 
+			protein: parseFloat($('#txtGoalProtein').val()), 
+			carbohydrate: parseFloat($('#txtGoalCarbohydrate').val()), 
+			fat: parseFloat($('#txtGoalFat').val())
+		}
+		
+		localStorage.goals = JSON.stringify(goals);
+		$('#divSaveGoalsResult').text('Saved new goals.').show().delay(750).fadeOut(750);
+		showFoodsData(getFoodsByDateString($('#date').val()));
+	});
+}
 	
 	
 function showFoodsData(foods) {
@@ -171,7 +188,13 @@ function showFoodsData(foods) {
 	$('#tblFoods>tbody').html(rows);
 	$('#tblFoods>tfoot').html(getTableRow({name: 'Total', portion: ' ', calories: totalCal, protein: totalP, carbohydrate: totalC, fat: totalF}, false));
 	
-	var goals = localStorage.goals || {calories: 1800, protein: 170, carbohydrate: 220, fat: 50 };
+	var goals;
+	if (localStorage.goals) {
+		goals = JSON.parse(localStorage.goals);
+	} else {
+		goals = {calories: 1800, protein: 170, carbohydrate: 220, fat: 50 };
+	}
+	
 	if (goals.calories) {
 		$('#progressCalories').attr('max', goals.calories).val(totalCal);
 		$('#divCalories').text(totalCal.toFixed(0));

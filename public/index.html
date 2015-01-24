@@ -18,10 +18,10 @@
 		<a href="/">kcal</a>
 	</header>
 	<div id="divMain">
-		<div class="pure-g"><div class="pure-u-5-6"><progress id="progressCalories" value="0" max="1"></progress></div><div class="pure-u-1-6" id="divCalories">1874</div></div>
-		<div class="pure-g"><div class="pure-u-5-6"><progress id="progressProtein" value="0" max="1"></progress></div><div class="pure-u-1-6" id="divProtein">111</div></div>
-		<div class="pure-g"><div class="pure-u-5-6"><progress id="progressCarbohydrate" value="0" max="1"></progress></div><div class="pure-u-1-6" id="divCarbohydrate">123</div></div>
-		<div class="pure-g"><div class="pure-u-5-6"><progress id="progressFat" value="0" max="1"></progress></div><div class="pure-u-1-6" id="divFat">45</div></div>
+		<div class="pure-g"><div class="pure-u-5-6"><progress id="progressCalories" value="0" max="1"></progress></div><div class="pure-u-1-6" id="divCalories">0</div></div>
+		<div class="pure-g"><div class="pure-u-5-6"><progress id="progressProtein" value="0" max="1"></progress></div><div class="pure-u-1-6" id="divProtein">0</div></div>
+		<div class="pure-g"><div class="pure-u-5-6"><progress id="progressCarbohydrate" value="0" max="1"></progress></div><div class="pure-u-1-6" id="divCarbohydrate">0</div></div>
+		<div class="pure-g"><div class="pure-u-5-6"><progress id="progressFat" value="0" max="1"></progress></div><div class="pure-u-1-6" id="divFat">0</div></div>
 		<div class="pure-g">
 			<div class="pure-u-1-4"><button id="btnPrevDate">&lt;</button></div>
 			<div class="pure-u-1-2"><input type="date" id="date" /></div>
@@ -98,7 +98,7 @@
 			<button data-tab-target="#divTabFoods">Foods</button>
 		</div>
 		<div class="pure-u-1-4">
-			<button data-tab-target="#divTabSomething">Something</button>
+			<button data-tab-target="#divTabSomething">Goals</button>
 		</div>
 	</div>
 	
@@ -137,7 +137,24 @@
 			<div class="pure-u-1-4 centered"><strong>^</strong></div>
 		</div>
 		<div>
-			Something
+			<div class="pure-g">
+				<div class="pure-u-1-2">Calories</div>
+				<div class="pure-u-1-2"><input type="number" id="txtGoalCalories" /></div>
+			</div>
+			<div class="pure-g">
+				<div class="pure-u-1-2">Protein</div>
+				<div class="pure-u-1-2"><input type="number" id="txtGoalProtein" /></div>
+			</div>
+			<div class="pure-g">
+				<div class="pure-u-1-2">Carbohydrate</div>
+				<div class="pure-u-1-2"><input type="number" id="txtGoalCarbohydrate" /></div>
+			</div>
+			<div class="pure-g">
+				<div class="pure-u-1-2">Fat</div>
+				<div class="pure-u-1-2"><input type="number" id="txtGoalFat" /></div>
+			</div>
+			<button id="btnSaveGoals">Save Goals</button>
+			<div id="divSaveGoalsResult"></div>
 		</div>
 	</div>
 	
