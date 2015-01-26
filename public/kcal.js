@@ -18,6 +18,7 @@ $(function() {
 	setupSaveClick();
 	setupTabButtonsClick();
 	setupBtnSaveGoalsClick();
+	setupFileUploads();
 });
 
 
@@ -75,6 +76,7 @@ function setupConsumeClick() {
 		localStorage[consumeDate] = JSON.stringify(foods);
 		showFoodsData(foods);
 		setupRemoveRowLinks();
+		$('#divSaveResult').text('Consumed ' + $('#txtName').val()).show().delay(750).fadeOut(750);
 	});
 }
 
@@ -168,6 +170,21 @@ function setupBtnSaveGoalsClick() {
 		localStorage.goals = JSON.stringify(goals);
 		$('#divSaveGoalsResult').text('Saved new goals.').show().delay(750).fadeOut(750);
 		showFoodsData(getFoodsByDateString($('#date').val()));
+	});
+}
+
+
+function setupFileUploads() {
+	$('#fileFoods').change(function(evt) {
+		console.log('change');
+		var fileToRead = evt.target.files[0];
+		console.log(fileToRead);
+		var reader = new FileReader();
+		reader.addEventListener('load', function(f) {
+			var foodsToAddOrModify = $.csv.toObjects(f.target.result);
+			console.dir(foodsToAddOrModify);
+		}, false);
+		reader.readAsText(fileToRead);
 	});
 }
 	

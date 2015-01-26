@@ -40,6 +40,7 @@ background-image: linear-gradient(to bottom, #006C9E 0%, #002333 80%);
 
 body > div {
 	padding: 1em;
+	border-bottom: linear-gradient(left, rgba(0,0,0,0), #006C9E, rgba(0,0,0,0)); 
 }
 
 #divMain > div {
@@ -152,4 +153,13 @@ a[data-remove-row] {
 
 div.tab {
 	display: none;
+}
+
+hr {
+	border: 0; 
+	height: 1px; 
+	background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), #006C9E, rgba(0,0,0,0)); 
+	background-image: -moz-linear-gradient(left, rgba(0,0,0,0), #006C9E, rgba(0,0,0,0)); 
+	background-image: -ms-linear-gradient(left, rgba(0,0,0,0), #006C9E, rgba(0,0,0,0)); 
+	background-image: -o-linear-gradient(left, rgba(0,0,0,0), #006C9E, rgba(0,0,0,0)); 
 }
