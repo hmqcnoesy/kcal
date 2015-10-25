@@ -1,5 +1,150 @@
-$(function() {
-	var todayString = dateToString(new Date());
+document.addEventListener("DOMContentLoaded", function(event) { 
+	document.getElementById('btnPrev').addEventListener('click', function() { changeDate(-1); });
+	document.getElementById('btnNext').addEventListener('click', function() { changeDate(1); });
+	document.getElementById('selFood').addEventListener('change', selFoodChanged);
+	document.getElementById('btnAdd').addEventListener('click', btnAddClicked);
+	document.getElementById('tblFoods').addEventListener('click', function(event) { tblFoodsClicked(event.target); });
+	loadDate(dateToString(new Date()));
+});
+
+
+function dateToString(date) {
+	var year = date.getFullYear().toString();
+	var month = ("0" + (date.getMonth() + 1)).slice(-2);
+	var day = ("0" + date.getDate()).slice(-2);
+	return year + "-" + month + "-" + day;
+}
+
+
+function stringToDate(dateString) {
+	var parts = dateString.split('-');
+	return new Date(parts[0], parts[1]-1, parts[2]);
+}
+
+
+function loadDate(dateString) {
+	var tblFoods = document.getElementById('tblFoods');
+	var tbody = document.querySelector('#tblFoods > tbody');
+	tblFoods.removeChild(tbody);
+	tbody = document.createElement('tbody');
+	
+	var daysFoods = localStorage[dateString];
+	if (daysFoods) {
+		daysFoods = JSON.parse(daysFoods);
+		if (daysFoods.foods) {
+			for (var i = 0; i < daysFoods.foods.length; i++) {
+				tbody.appendChild(createTableRowElement(daysFoods.foods[i]));
+			}
+		}
+	}
+	tblFoods.insertBefore(tbody, document.querySelector('#tblFoods > tfoot'));
+	document.getElementById('spanDate').innerHTML = dateString;
+}
+
+
+function changeDate(offset) {
+	var selectedDate = stringToDate(document.getElementById('spanDate').innerHTML);
+	selectedDate.setDate(selectedDate.getDate() + offset);
+	loadDate(dateToString(selectedDate));
+}
+
+
+function selFoodChanged() {
+	var foodName = document.getElementById('selFood').value;
+	if (!foodName) return;
+	var food = localStorage['food' + foodName];
+	if (!food) return;
+	document.getElementById('txtName').value = food.name;
+	document.getElementById('txtServings').value = 1;
+	document.getElementById('txtCalories').value = food.calories;
+	document.getElementById('txtProtein').value = food.protein;
+	document.getElementById('txtCarbohydrate').value = food.carbohydrate;
+	document.getElementById('txtFat').value = food.fat;
+}
+
+
+function btnAddClicked() {
+	var food = {
+		id : guid(),
+		name : document.getElementById('txtName').value,
+		servings : document.getElementById('txtServings').value,
+		calories : document.getElementById('txtCalories').value,
+		protein : document.getElementById('txtProtein').value,
+		carbohydrate : document.getElementById('txtCarbohydrate').value,
+		fat : document.getElementById('txtFat').value
+	}
+	
+	var selectedDateString = document.getElementById('spanDate').innerHTML;
+	var selectedDaysFood = localStorage[selectedDateString] || '{"foods":[]}';
+	selectedDaysFood = JSON.parse(selectedDaysFood);
+	selectedDaysFood.foods.push(food);
+	localStorage[selectedDateString] = JSON.stringify(selectedDaysFood);
+	loadDate(selectedDateString);
+}
+
+
+function tblFoodsClicked(element) {
+	if (!element.classList.contains('delete')) return;
+	
+	var selectedDate = document.getElementById('spanDate').innerHTML
+	var selectedDaysFoods = localStorage[selectedDate];
+	if (!selectedDaysFoods) return;
+	
+	var idToDelete = element.getAttribute('data-id');
+	
+	selectedDaysFoods = JSON.parse(selectedDaysFoods);
+	for (var i = 0; i < selectedDaysFoods.foods.length; i++) {
+		if (selectedDaysFoods.foods[i].id && selectedDaysFoods.foods[i].id == idToDelete) {
+			selectedDaysFoods.foods.splice(i, 1);
+			break;
+		}
+	}
+	
+	localStorage[selectedDate] = JSON.stringify(selectedDaysFoods);
+	loadDate(selectedDate);
+}
+
+
+function createTableRowElement(food) {
+	var tr = document.createElement('tr');
+	var td = document.createElement('td');
+	td.appendChild(document.createTextNode(food.name));
+	tr.appendChild(td);
+	td = document.createElement('td');
+	td.appendChild(document.createTextNode(food.servings));
+	tr.appendChild(td);
+	td = document.createElement('td');
+	td.appendChild(document.createTextNode(food.calories));
+	tr.appendChild(td);
+	td = document.createElement('td');
+	td.appendChild(document.createTextNode(food.protein));
+	tr.appendChild(td);
+	td = document.createElement('td');
+	td.appendChild(document.createTextNode(food.carbohydrate));
+	tr.appendChild(td);
+	td = document.createElement('td');
+	td.appendChild(document.createTextNode(food.fat));
+	tr.appendChild(td);
+	td = document.createElement('td');
+	var btnDelete = document.createElement('button');
+	btnDelete.classList.add('delete');
+	btnDelete.setAttribute('data-id', food.id);
+	btnDelete.appendChild(document.createTextNode('x'));
+	td.appendChild(btnDelete);
+	tr.appendChild(td);
+	return tr;
+}
+
+
+function guid() {
+	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) { 
+		var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8); 
+		return v.toString(16); 
+	});
+}
+
+
+	/*var todayString = dateToString(new Date());
 	var foods = getFoodsByDateString(todayString);
 	$('#date').val(todayString);
 	
@@ -19,18 +164,17 @@ $(function() {
 	setupTabButtonsClick();
 	setupBtnSaveGoalsClick();
 	setupFileUploads();
-});
 
 
 function setupPrevNextDateButtonClick() {
-	$('#btnPrevDate').click(function() {
+	$('#btnPrev').click(function() {
 		var selectedDate = stringToDate($('#date').val());
 		selectedDate.setDate(selectedDate.getDate() - 1);
 		$('#date').val(dateToString(selectedDate));
 		$('#date').trigger('change');
 	});
 	
-	$('#btnNextDate').click(function() {
+	$('#btnNext').click(function() {
 		var selectedDate = stringToDate($('#date').val());
 		selectedDate.setDate(selectedDate.getDate() + 1);
 		$('#date').val(dateToString(selectedDate));
@@ -306,3 +450,4 @@ function getQuickFoods() {
 		return a.name.localeCompare(b.name);
 	});
 }
+*/

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html manifest="kcal.appcache">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>kcal</title>
+	<meta name="description" content="kcal">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="msapplication-config" content="browserconfig.xml" />
+	<meta name="application-name" content="" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="img/apple-touch-icon-57x57.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114x114.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144x144.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="120x120" href="img/apple-touch-icon-120x120.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="152x152" href="img/apple-touch-icon-152x152.png" />
+	<link rel="icon" type="image/png" href="img/favicon-196x196.png" sizes="196x196" />
+	<link rel="icon" type="image/png" href="img/favicon-96x96.png" sizes="96x96" />
+	<link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32" />
+	<link rel="icon" type="image/png" href="img/favicon-16x16.png" sizes="16x16" />
+	<link rel="icon" type="image/png" href="img/favicon-128.png" sizes="128x128" />
+	<link rel="icon" type="image/x-icon" href="img/favicon.ico?1" />
+	<link rel="stylesheet" href="kcal.css">
+	
+    <title>kcal</title>
+    <link href="kcal.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div><progress id="progressCalories" value="0" max="1"></progress><span id="spanCalories">0/0</span></div>
+	<div><progress id="progressProtein" value="0" max="1"></progress><span id="spanProtein">0/0</span></div>
+	<div><progress id="progressCarbohydrate" value="0" max="1"></progress><span id="spanCarbohydrate">0/0</span></div>
+	<div><progress id="progressFat" value="0" max="1"></progress><span id="spanFat">0/0</span></div>
+	
+	<hr />
+
+	<div><button id="btnPrev">&lt;</button><span id="spanDate"></span><button id="btnNext">&gt;</button></div>
+
+	<table id="tblFoods">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>#</th>
+				<th>Cal</th>
+				<th>P</th>
+				<th>C</th>
+				<th>F</th>
+				<th></th>
+			</tr>
+			<tr>
+				<td><input type="text" id="txtName" autofocus /><select id="selFood"></select></td>
+				<td><input type="number" id="txtServings" value="1" /></td>
+				<td><input type="number" id="txtCalories" /></td>
+				<td><input type="number" id="txtProtein" /></td>
+				<td><input type="number" id="txtCarbohydrate" /></td>
+				<td><input type="number" id="txtFat" /></td>
+				<td><button id="btnAdd">+</button></td>
+			</tr>
+		</thead>
+		<tbody></tbody>
+		<tfoot>
+		</tfoot>
+	</table>
+	
+	<script src="kcal.js"></script>
+</body>
+</html>
