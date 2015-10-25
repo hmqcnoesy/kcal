@@ -59,7 +59,6 @@ input[type=number] {
 	text-align: center;
 	display: inline-block;
 	box-sizing: border-box;
-	font-size: 75%;
 	font-weight: bold;
 }
 
@@ -75,8 +74,8 @@ input[type=number] {
 
 #tblFoods {
 	width: 100%;
-	font-size: 65%;
 	box-sizing: border-box;
+	font-size: 80%;
 }
 
 
