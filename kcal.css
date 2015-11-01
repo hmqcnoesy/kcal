@@ -37,9 +37,12 @@ progress {
 	box-sizing: border-box;
 }
 
+input, select, button {
+	box-sizing: border-box;
+}
+
 input, select {
 	width:100%;
-	box-sizing: border-box;
 	text-align: right;
 	border: none;
 	margin: 0;
@@ -71,6 +74,19 @@ input[type=number] {
 	font-weight: bold;
 }
 
+#selQuickFood {
+	background-color: #002333;
+	text-align: left;
+	border: 1px solid #006C9E;
+	color: white;
+}
+
+#selQuickFood,
+#btnRemoveQuickFood,
+#btnAddQuickFood {
+	display: inline-block;
+	width: 33%;
+}
 
 #tblFoods {
 	width: 100%;

@@ -1,9 +1,12 @@
-document.addEventListener("DOMContentLoaded", function(event) { 
+document.addEventListener("DOMContentLoaded", function(event) {
 	document.getElementById('btnPrev').addEventListener('click', function() { changeDate(-1); });
 	document.getElementById('btnNext').addEventListener('click', function() { changeDate(1); });
-	document.getElementById('selFood').addEventListener('change', selFoodChanged);
+	document.getElementById('selQuickFood').addEventListener('change', selQuickFoodChanged);
 	document.getElementById('btnAdd').addEventListener('click', btnAddClicked);
 	document.getElementById('tblFoods').addEventListener('click', function(event) { tblFoodsClicked(event.target); });
+	document.getElementById('btnRemoveQuickFood').addEventListener('click', btnRemoveQuickFoodClicked);
+	document.getElementById('btnAddQuickFood').addEventListener('click', btnAddQuickFoodClicked); 
+	loadQuickFoods();
 	loadDate(dateToString(new Date()));
 });
 
@@ -42,6 +45,24 @@ function loadDate(dateString) {
 }
 
 
+function loadQuickFoods() {
+	var opt;
+	var selQuickFood = document.getElementById('selQuickFood');
+	selQuickFood.innerHTML = '<option data-name="" data-calories="" data-protein="" data-carbohydrate="" data-fat="" value=""></option>';
+	
+	var quickFoods = JSON.parse(localStorage.quickFoods || '[]');
+	for (var i = 0; i < quickFoods.length; i++) {
+		opt = document.createElement('option');
+		opt.appendChild(document.createTextNode(quickFoods[i].name));
+		opt.setAttribute('data-calories', quickFoods[i].calories);
+		opt.setAttribute('data-protein', quickFoods[i].protein);
+		opt.setAttribute('data-carbohydrate', quickFoods[i].carbohydrate);
+		opt.setAttribute('data-fat', quickFoods[i].fat);
+		selQuickFood.appendChild(opt);
+	}
+}
+
+
 function changeDate(offset) {
 	var selectedDate = stringToDate(document.getElementById('spanDate').innerHTML);
 	selectedDate.setDate(selectedDate.getDate() + offset);
@@ -49,17 +70,14 @@ function changeDate(offset) {
 }
 
 
-function selFoodChanged() {
-	var foodName = document.getElementById('selFood').value;
-	if (!foodName) return;
-	var food = localStorage['food' + foodName];
-	if (!food) return;
-	document.getElementById('txtName').value = food.name;
+function selQuickFoodChanged() {
+	var selectedFood = document.querySelector('#selQuickFood option:checked');
+	document.getElementById('txtName').value = selectedFood.value;
 	document.getElementById('txtServings').value = 1;
-	document.getElementById('txtCalories').value = food.calories;
-	document.getElementById('txtProtein').value = food.protein;
-	document.getElementById('txtCarbohydrate').value = food.carbohydrate;
-	document.getElementById('txtFat').value = food.fat;
+	document.getElementById('txtCalories').value = selectedFood.getAttribute('data-calories');
+	document.getElementById('txtProtein').value = selectedFood.getAttribute('data-protein');
+	document.getElementById('txtCarbohydrate').value = selectedFood.getAttribute('data-carbohydrate');
+	document.getElementById('txtFat').value = selectedFood.getAttribute('data-fat');
 }
 
 
@@ -102,6 +120,38 @@ function tblFoodsClicked(element) {
 	
 	localStorage[selectedDate] = JSON.stringify(selectedDaysFoods);
 	loadDate(selectedDate);
+}
+
+
+function btnRemoveQuickFoodClicked() {
+	var quickFoodName = document.getElementById('selQuickFood').value;
+	var sure = confirm('Confirm delete of ' + quickFoodName);
+	if (!sure) return;
+	
+	var quickFoods = JSON.parse(localStorage.quickFoods);
+	for (var i = 0; i < quickFoods.length; i++) {
+		if (quickFoods[i].name === quickFoodName) {
+			quickFoods.splice(i, 1);
+		}
+	}
+	
+	localStorage.quickFoods = JSON.stringify(quickFoods);
+	loadQuickFoods();
+}
+
+
+function btnAddQuickFoodClicked() {
+	var quickFoods = JSON.parse(localStorage.quickFoods || '[]');
+	quickFoods.push({
+		name: document.getElementById('txtName').value,
+		calories: document.getElementById('txtCalories').value,
+		protein: document.getElementById('txtProtein').value,
+		carbohydrate: document.getElementById('txtCarbohydrate').value,
+		fat: document.getElementById('txtFat').value,
+	})
+	
+	localStorage.quickFoods = JSON.stringify(quickFoods);
+	loadQuickFoods();
 }
 
 
