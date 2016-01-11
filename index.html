@@ -27,10 +27,10 @@
     <link href="kcal.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<div><progress id="progressCalories" value="0" max="1"></progress><span id="spanCalories">0/0</span></div>
-	<div><progress id="progressProtein" value="0" max="1"></progress><span id="spanProtein">0/0</span></div>
-	<div><progress id="progressCarbohydrate" value="0" max="1"></progress><span id="spanCarbohydrate">0/0</span></div>
-	<div><progress id="progressFat" value="0" max="1"></progress><span id="spanFat">0/0</span></div>
+	<div><progress id="progressCalories" value="0"></progress><span id="spanCalories">0/0</span></div>
+	<div><progress id="progressProtein" value="0"></progress><span id="spanProtein">0/0</span></div>
+	<div><progress id="progressCarbohydrate" value="0"></progress><span id="spanCarbohydrate">0/0</span></div>
+	<div><progress id="progressFat" value="0"></progress><span id="spanFat">0/0</span></div>
 	
 	<hr />
 
@@ -51,11 +51,11 @@
 			</tr>
 			<tr>
 				<td><input type="text" id="txtName" autofocus /></td>
-				<td><input type="number" id="txtServings" value="1" /></td>
-				<td><input type="number" id="txtCalories" /></td>
-				<td><input type="number" id="txtProtein" /></td>
-				<td><input type="number" id="txtCarbohydrate" /></td>
-				<td><input type="number" id="txtFat" /></td>
+				<td><input type="number" step="0.01" id="txtServings" value="1" /></td>
+				<td><input type="number" step="0.01" id="txtCalories" /></td>
+				<td><input type="number" step="0.01" id="txtProtein" /></td>
+				<td><input type="number" step="0.01" id="txtCarbohydrate" /></td>
+				<td><input type="number" step="0.01" id="txtFat" /></td>
 				<td><button id="btnAdd">+</button></td>
 			</tr>
 		</thead>

@@ -31,17 +31,47 @@ function loadDate(dateString) {
 	tblFoods.removeChild(tbody);
 	tbody = document.createElement('tbody');
 	
+    var totalCalories = 0, totalProtein = 0, totalCarbohydrate = 0, totalFat = 0;
 	var daysFoods = localStorage[dateString];
 	if (daysFoods) {
 		daysFoods = JSON.parse(daysFoods);
 		if (daysFoods.foods) {
 			for (var i = 0; i < daysFoods.foods.length; i++) {
 				tbody.appendChild(createTableRowElement(daysFoods.foods[i]));
+                totalCalories += parseFloat(daysFoods.foods[i].calories)
+                totalProtein += parseFloat(daysFoods.foods[i].protein);
+                totalCarbohydrate += parseFloat(daysFoods.foods[i].carbohydrate);
+                totalFat += parseFloat(daysFoods.foods[i].fat);
 			}
 		}
 	}
 	tblFoods.insertBefore(tbody, document.querySelector('#tblFoods > tfoot'));
 	document.getElementById('spanDate').innerHTML = dateString;
+    
+    loadProgress(totalCalories, totalProtein, totalCarbohydrate, totalFat);
+}
+
+
+function loadProgress(calories, protein, carbohydrate, fat) {
+    
+    var goalCalories = parseFloat(localStorage.goalCalories || '1600');
+    var goalProtein = parseFloat(localStorage.goalProtein || '150');
+    var goalCarbohydrate = parseFloat(localStorage.goalCarbohydrate || '200');
+    var goalFat = parseFloat(localStorage.goalFat || '50');
+    
+    document.getElementById('progressCalories').value = calories;
+    document.getElementById('progressCalories').max = goalCalories;
+    document.getElementById('progressProtein').value = protein;
+    document.getElementById('progressProtein').max = goalProtein;
+    document.getElementById('progressCarbohydrate').value = carbohydrate;
+    document.getElementById('progressCarbohydrate').max = goalCarbohydrate;
+    document.getElementById('progressFat').value = fat;
+    document.getElementById('progressFat').max = goalFat;
+        
+    document.getElementById('spanCalories').innerHTML = calories;
+    document.getElementById('spanProtein').innerHTML = protein;
+    document.getElementById('spanCarbohydrate').innerHTML = carbohydrate;
+    document.getElementById('spanFat').innerHTML = fat;
 }
 
 

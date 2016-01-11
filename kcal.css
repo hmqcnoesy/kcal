@@ -37,6 +37,18 @@ progress {
 	box-sizing: border-box;
 }
 
+progress::-moz-progress-bar{
+  background-color: #002333;
+}
+
+progress::-webkit-progress-value {
+  background-color: #002333;
+}
+
+progress {
+  color: #002333;
+}
+
 input, select, button {
 	box-sizing: border-box;
 }
